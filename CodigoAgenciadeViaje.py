@@ -308,12 +308,12 @@ while True:
 #Eliminar Recerva
     elif opcion == "7":
         while True:
-            nombre_cliente = input("Nombre del cliente: ").strip()
+            nombre_cliente = input("Nombre del cliente: ").strip().lower()
             if all(c.isalpha() or c.isspace() for c in nombre_cliente) and len(nombre_cliente) > 0:
                 break
             print("Error: El nombre debe contener solo letras y no puede estar vacío.")
         while True:
-            destino = input("Nombre del destino a eliminar: ").strip()
+            destino = input("Nombre del destino a eliminar: ").strip().lower()
             if all(c.isalpha() or c.isspace() for c in destino) and len(destino) > 0:
                 break
             print("Error: El nombre del destino debe contener solo letras y no puede estar vacío.")
@@ -348,7 +348,7 @@ while True:
 #Actualizar cliente
     elif opcion == "11":
         while True:
-            nombre_cliente = input("Nombre del cliente para actualizar datos: ").strip()
+            nombre_cliente = input("Nombre del cliente para actualizar datos: ").strip().lower()
             if all(c.isalpha() or c.isspace() for c in nombre_cliente) and len(nombre_cliente) > 0:
                 break
             print("Error: El nombre debe contener solo letras y no puede estar vacío.")
@@ -362,7 +362,7 @@ while True:
 #Eliminar cliente
     elif opcion == "12":
         while True:
-            nombre_cliente = input("Nombre del cliente a eliminar: ").strip()
+            nombre_cliente = input("Nombre del cliente a eliminar: ").strip().lower()
             if all(c.isalpha() or c.isspace() for c in nombre_cliente) and len(nombre_cliente) > 0:
                     break
             print("Error: El nombre debe contener solo letras y no puede estar vacío.")
