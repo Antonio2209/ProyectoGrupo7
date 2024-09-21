@@ -1,6 +1,7 @@
-import re
+import re  #patron definido como la fecha
 from datetime import datetime
 
+#Diccionarios predefinidos
 paquetes = {
     "aventura en la selva": {
         "nombre": "aventura en la selva",
@@ -56,7 +57,7 @@ clientes = {
 #  hoteles predefinidos
 hoteles = ["hotel paris", "resort playa", "hostal montaña", "hotel central City", "hotel luxor"]
 
-# Funciones para gestionar los paquetes turísticos
+# Funcion para gestionar los paquetes turísticos
 def crear_paquete(paquetes, nombre, descripcion, precio):
     paquete = {
         "nombre": nombre,
@@ -69,9 +70,11 @@ def crear_paquete(paquetes, nombre, descripcion, precio):
         paquetes[nombre] = paquete
         print(f"Paquete '{nombre}' creado exitosamente.")
 
+#funcion buscar paquetes
 def buscar_paquete(paquetes, nombre):
-    return paquetes.get(nombre, None)
+    return paquetes.get(nombre, None)  #None=ausencia de valor o valor nulo.   .get=para buscar
 
+#funcion actualizar paquetes
 def actualizar_paquete(paquetes, nombre, descripcion=None, precio=None):
     if nombre in paquetes:
         if descripcion:
@@ -82,6 +85,7 @@ def actualizar_paquete(paquetes, nombre, descripcion=None, precio=None):
     else:
         print(f"El paquete '{nombre}' no existe.")
 
+#funcion eliminar paquetes
 def eliminar_paquete(paquetes, nombre):
     if nombre in paquetes:
         del paquetes[nombre]
@@ -89,6 +93,7 @@ def eliminar_paquete(paquetes, nombre):
     else:
         print(f"El paquete '{nombre}' no existe.")
 
+#funcion mostrar paquetes
 def mostrar_paquetes(paquetes):
     print("\n--- Paquetes Turísticos Disponibles ---")
     for paquete in paquetes.values():
@@ -107,13 +112,15 @@ def registrar_cliente(clientes, nombre, correo):
         clientes[nombre] = cliente
         print(f"Cliente '{nombre}' registrado.")
 
+#funcion para buscar clientes
 def buscar_cliente(clientes, nombre):
     nombre_normalizado = nombre.strip().lower()
-    for nombre_cliente, datos_cliente in clientes.items():
+    for nombre_cliente, datos_cliente in clientes.items():  #obtener clave,valor del diccionario
         if nombre_cliente.strip().lower() == nombre_normalizado:
             return datos_cliente
     return None
 
+#funcion para actualizar clientes
 def actualizar_cliente(clientes, nombre, correo=None):
     if nombre in clientes:
         if correo:
@@ -122,6 +129,7 @@ def actualizar_cliente(clientes, nombre, correo=None):
     else:
         print(f"El cliente '{nombre}' no existe.")
 
+#funcion para eliminar clientes
 def eliminar_cliente(clientes, nombre):
     nombre_normalizado = nombre.strip().lower()  # Normalización del nombre
     cliente_encontrado = None
@@ -150,6 +158,7 @@ def hacer_reserva(clientes, tipo, destino, fecha, nombre_cliente):
     else:
         print(f"Cliente {nombre_cliente} no encontrado.")
 
+#funcion mostrar reservas
 def mostrar_todas_reservas(clientes):
     print("\n--- Todas las reservas ---")
     for nombre_cliente, cliente in clientes.items():
@@ -160,13 +169,14 @@ def mostrar_todas_reservas(clientes):
         else:
             print(f"{cliente['nombre']} no tiene reservas.")
 
+#funcion eliminar reservas
 def eliminar_reserva(clientes, nombre_cliente, destino):
     cliente = buscar_cliente(clientes, nombre_cliente)
     if cliente:
         reservas = cliente["reservas"]
         for reserva in reservas:
             if reserva["destino"] == destino:
-                reservas.remove(reserva)
+                reservas.remove(reserva) #remover o borrar
                 print(f"Reserva a {destino} eliminada para {cliente['nombre']}.")
                 return
         print(f"No se encontró una reserva a {destino} para {cliente['nombre']}.")
@@ -179,9 +189,9 @@ def seleccionar_hotel():
     for i, hotel in enumerate(hoteles, 1):
         print(f"{i}. {hotel}")
     opcion = input("Elige una opción de hotel: ")
-    while not opcion.isdigit() or not (1 <= int(opcion) <= len(hoteles)):
-        print("Opción inválida, intenta de nuevo.")
-        opcion = input("Elige una opción de hotel: ")
+    while not opcion.isdigit() or not (1 <= int(opcion) <= len(hoteles)):  #opcion.isdigit  verifica si la cadena opcion contiene solo dígitos
+        print("Opción inválida, intenta de nuevo.")                        #1 <= int(opcion) <= len(hoteles) comprueba si el número ingresado 
+        opcion = input("Elige una opción de hotel: ")                      #está dentro del rango válido, es decir, entre 1 y la longitud de la lista hoteles
     return hoteles[int(opcion) - 1]
 
 # Validar formato de fecha
@@ -218,14 +228,14 @@ while True:
 #Creacion del paquete
     if opcion == "1":
         while True:
-            nombre = input("Nombre del paquete: ").strip().lower()
-            if all(c.isalpha() or c.isspace() for c in nombre) and len(nombre) > 0:
-                break
-            print("Error: El nombre debe contener solo letras y no puede estar vacío.")
+            nombre = input("Nombre del paquete: ").strip().lower()                         #c.isalpha() verifica si el carácter c es una letra
+            if all(c.isalpha() or c.isspace() for c in nombre) and len(nombre) > 0:        #c.isspace() verifica si el carácter c es un espacio en blanco
+                break                                                                      #len(nombre) > 0: comprueba que la longitud sea mayor que 0, que no esté vacía. 
+            print("Error: El nombre debe contener solo letras y no puede estar vacío.")    
         
         descripcion = input("Descripción del paquete: ").strip()
         precio = input("Precio del paquete: ").strip()
-        while not precio.replace('.', '', 1).isdigit():
+        while not precio.replace('.', '', 1).isdigit():                                    #replace('.', '', 1):elimina el primer punto (.) en la cadena precio. decimal valido
             print("Por favor, ingrese un precio válido.")
             precio = input("Precio del paquete: ").strip()
         crear_paquete(paquetes, nombre, descripcion, precio)
